@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanya Dokter - Pojok Ibu</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+</head>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h2 class="logo">Pojok Ibu</h2>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="forum.html">Forum Diskusi</a></li>
+                    <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                    <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div class="container">
+                <h2>Tanya Dokter Pojok Ibu</h2>
+                <p style="text-align: center; margin-bottom: 40px; font-size: 1.1rem; color: #666;">Ajukan pertanyaan
+                    seputar kesehatan ibu dan anak Anda langsung kepada tim dokter ahli kami. Jawaban akan kami kirimkan
+                    via email atau nomor HP Anda.</p>
+
+                <div class="container">
+                    <div id="liveAlertPlaceholder"></div>
+                </div>
+
+
+                <form id="tanyaDokterForm" class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <label for="nama_lengkap" class="form-label">Nama Lengkap:</label>
+                        <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control" required>
+                        <div class="invalid-feedback">Nama Lengkap wajib diisi.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Alamat Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                        <div class="invalid-feedback">Alamat Email wajib diisi.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nomor_hp" class="form-label">Nomor HP:</label>
+                        <input type="tel" id="nomor_hp" name="nomor_hp" pattern="[0-9]{10,15}"
+                            placeholder="Contoh: 081234567890" class="form-control" required>
+                            <div class="invalid-feedback">Nomor Handphone wajib diisi.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="judul_pertanyaan_dokter" class="form-label">Judul Pertanyaan:</label>
+                        <input type="text" id="judul_pertanyaan_dokter" name="judul_pertanyaan_dokter" class="form-control" required>
+                        <div class="invalid-feedback">Judul Pertanyaan wajib diisi.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="isi_pertanyaan_dokter" class="form-label">Isi Pertanyaan Anda:</label>
+                        <textarea id="isi_pertanyaan_dokter" name="isi_pertanyaan_dokter" class="form-control" required></textarea>
+                        <div class="invalid-feedback">Isi Pertanyaan wajib diisi.</div>
+                    </div>
+                    <button type="submit" class="button" id="liveAlertBtn">Kirim Pertanyaan</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        (() => {
+            'use strict';
+
+            const form = document.getElementById('tanyaDokterForm');
+            const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+            const confirmationMessage = document.getElementById('confirmationMessage');
+
+            const appendAlert = (message, type) => {
+                alertPlaceholder.innerHTML = '';
+                const wrapper = document.createElement('div');
+                wrapper.innerHTML = `
+                    <div class="alert alert-${type} alert-dismissible" role="alert">
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>`;
+                alertPlaceholder.append(wrapper);
+            };
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    return;
+                }
+
+                form.classList.remove('was-validated');
+                form.reset();
+
+                appendAlert('Pertanyaan Anda telah terkirim, mohon tunggu balasan via WhatsApp/Email Anda!', 'success');
+                confirmationMessage.style.display = 'block';
+            });
+        })();
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekomendasi Posyandu - Pojok Ibu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h2 class="logo">Pojok Ibu</h2>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="forum.html">Forum Diskusi</a></li>
+                    <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                    <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div class="container">
+                <h2>Temukan Posyandu Terdekat</h2>
+                <form id="posyanduForm" onsubmit="return showPosyanduResults(event)">
+                    <div class="form-group">
+                        <label for="provinsi">Pilih Kecamatan:</label>
+                        <select id="kecamatan" name="kecamatan" required>
+                            <option value="">-- Pilih Kecamatan --</option>
+                            <option value="seyegan">Seyegan</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="kalurahan">Pilih:</label>
+                        <select id="kalurahan" name="kalurahan" required>
+                            <option value="">-- Pilih Kalurahan --</option>
+                            <option value="margomulyo">Margomulyo</option>
+                            <option value="margokaton">Margokaton</option>
+                            <option value="margodadi">Margodadi</option>
+                            
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Cari Posyandu</button>
+                </form>
+
+                <div id="margomulyo" class="posyandu-list" style="margin-top: 60px; display: none;">
+                    <h3>Hasil Pencarian Posyandu di <span id="selected_margomulyo"></span></h3>
+                    <div class="kotak">
+                        <h3>Posyandu Melati</h3>
+                        <p>Alamat: Jl. Kamal Wetan No. 12, Margomulyo, Seyegan, Sleman</p>
+                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Selasa, Minggu ke-2 & ke-4, Pukul 09.00 - 12.00 WIB</p>
+                        <p>Kontak: 0881-8909-765</p>
+                    </div>
+                    <div class="kotak">
+                        <h3>Posyandu Mawar</h3>
+                        <p>Alamat: Jl. Kasuran No. 5, Margomulyo, Seyegan, Sleman</p>
+                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Kamis, Minggu ke-1 & ke-3, Pukul 08.30 - 11.30 WIB</p>
+                        <p>Kontak: 0812-3456-789</p>
+                    </div>
+                     <div class="kotak">
+                        <h3>Posyandu Kamboja</h3>
+                        <p>Alamat: Jl. Sompokan No. 56, Margomulyo, Seyegan, Sleman</p>
+                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Jumat, Minggu ke-2, Pukul 09.00 - 13.00 WIB</p>
+                        <p>Kontak: 0838-9381-889</p>
+                    </div>
+                </div>
+
+                <div id="margokaton" class="posyandu-list" style="margin-top: 60px; display: none;">
+                    <h3>Hasil Pencarian Posyandu di <span id="selected_margokaton"></span></h3>
+                    <div class="kotak">
+                        <h3>Posyandu Gajah</h3>
+                        <p>Alamat: Jl. Gentan No. 90, Margokaton, Seyegan, Sleman</p>
+                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Selasa, Minggu ke-2 & ke-4, Pukul 09.00 - 12.00 WIB</p>
+                        <p>Kontak: 0835-7364-6464</p>
+                    </div>
+                    <div class="kotak">
+                        <h3>Posyandu Kuda</h3>
+                        <p>Alamat: Jl. Diponegoro No. 7, Margokaton, Seyegan, Sleman</p>
+                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Kamis, Minggu ke-1 & ke-3, Pukul 08.30 - 11.30 WIB</p>
+                        <p>Kontak: 0875-7384-7346</p>
+                    </div>
+                     <div class="kotak">
+                        <h3>Posyandu Domba</h3>
+                        <p>Alamat: Jl. Alaska No. 63, Margokaton, Seyegan, Sleman</p>
+                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Jumat, Minggu ke-2, Pukul 09.00 - 13.00 WIB</p>
+                        <p>Kontak: 0834-3463-3432</p>
+                    </div>
+                </div>
+
+                <div id="margodadi" class="posyandu-list" style="margin-top: 60px; display: none;">
+                    <h3>Hasil Pencarian Posyandu di <span id="selected_margodadi"></span></h3>
+                    <div class="kotak">
+                        <h3>Posyandu Durian</h3>
+                        <p>Alamat: Jl. Hasanudin No. 90, Margodadi, Seyegan, Sleman</p>
+                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Selasa, Minggu ke-2 & ke-4, Pukul 09.00 - 12.00 WIB</p>
+                        <p>Kontak: 0886-9864-7547</p>
+                    </div>
+                    <div class="kotak">
+                        <h3>Posyandu Nanas</h3>
+                        <p>Alamat: Jl. Kartini No. 13, Margodadi, Seyegan, Sleman</p>
+                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Kamis, Minggu ke-1 & ke-3, Pukul 08.30 - 11.30 WIB</p>
+                        <p>Kontak: 0812-3456-785</p>
+                    </div>
+                     <div class="kotak">
+                        <h3>Posyandu Pepaya</h3>
+                        <p>Alamat: Jl. Wahidin No. 88, Margodadi, Seyegan, Sleman</p>
+                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Jumat, Minggu ke-2, Pukul 09.00 - 13.00 WIB</p>
+                        <p>Kontak: 0834-8383-8112</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showPosyanduResults(event) {
+            event.preventDefault();
+
+            const kecamatan = document.getElementById('kecamatan').value;
+            const kalurahan = document.getElementById('kalurahan').value;
+            const selectedLocationSpan = document.getElementById('selected_margomulyo');
+            const selectedLocationSpan2 = document.getElementById('selected_margokaton');
+            const selectedLocationSpan3 = document.getElementById('selected_margodadi');
+            const posyanduResultsDiv = document.getElementById('margomulyo');
+            const posyanduResultsDiv2 = document.getElementById('margokaton');
+            const posyanduResultsDiv3 = document.getElementById('margodadi');
+
+            if (kalurahan=='margomulyo') {
+                const kecamatanTeks = document.getElementById('kecamatan').options[document.getElementById('kecamatan').selectedIndex].text;
+                const kalurahanTeks = document.getElementById('kalurahan').options[document.getElementById('kalurahan').selectedIndex].text;
+
+                selectedLocationSpan.textContent = `${kalurahanTeks}, ${kecamatanTeks}`;
+                posyanduResultsDiv.style.display = 'block'; 
+            } else if (kalurahan=='margokaton'){
+                const kecamatanTeks = document.getElementById('kecamatan').options[document.getElementById('kecamatan').selectedIndex].text;
+                const kalurahanTeks = document.getElementById('kalurahan').options[document.getElementById('kalurahan').selectedIndex].text;
+
+                selectedLocationSpan2.textContent = `${kalurahanTeks}, ${kecamatanTeks}`;
+                posyanduResultsDiv2.style.display = 'block'; 
+            } else if (kalurahan=='margodadi'){
+                const kecamatanTeks = document.getElementById('kecamatan').options[document.getElementById('kecamatan').selectedIndex].text;
+                const kalurahanTeks = document.getElementById('kalurahan').options[document.getElementById('kalurahan').selectedIndex].text;
+
+                selectedLocationSpan3.textContent = `${kalurahanTeks}, ${kecamatanTeks}`;
+                posyanduResultsDiv3.style.display = 'block'; 
+            }
+             else {
+                alert('Mohon lengkapi pilihan kecamatan dan kalurahan.');
+                posyanduResultsDiv.style.display = 'none';
+            }
+            return false; 
+        }
+    </script>
+</body>
+</html>
