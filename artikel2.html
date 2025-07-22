@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips Nutrisi Penting Selama Kehamilan - Pojok Ibu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Pojok Ibu</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="forum.html">Forum Diskusi</a></li>
+                    <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                    <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="artikel" id="2">
+                <h1>Stimulasi Tumbuh Kembang Bayi</h1>
+                <p class="article-meta">Diposting oleh: Admin Pojok Ibu | 1 Juli 2025</p>
+                <img src="asset/tumbuh.jpg" alt="Gambar Artikel Nutrisi Ibu Hamil">
+
+                <p>Ada beberapa bentuk stimulasi yang dapat diberikan pada periode emas, sesuai dengan perkembangan usia anak:</p>
+
+                <h3>1. 0–3 bulan </h3>
+                <p>Memeluk, menggendong, menatap mata bayi, mengajak senyum, meniru ocehan dan mimik muka bayi, membunyikan berbagai suara atau musik secara bergantian, menggantung dan menggerakkan benda berwarna terang atau berbunyi, menggulingkan bayi ke kanan-ke kiri, tengkurap, telentang, serta mengajak bayi mengamati benda-benda dan keadaan di sekitarnya.</p>
+
+                <h3>2. 3–6 bulan</h3>
+                <p>Bermain petak umpet, mencari sumber suara, menirukan suara dan kata, melihat wajah bayi dan ibu di cermin, melihat-meraih, dan menendang mainan gantung, memperhatikan benda bergerak, serta meraba dan merasakan berbagai bentuk permukaan dan tekstur.</p>
+
+                <h3>3. 6–9 bulan </h3>
+                <p>Memanggil nama anak, mengajak bersalaman, tepuk tangan, membacakan dongeng, merangsang duduk, serta melatih berdiri sambil berpegangan.</p>
+
+                <h3>4. 9–12 bulan</h3>
+                <p>Mengulang-ulang nama ibu, ayah, atau kakak, memasukkan mainan ke dalam wadah, minum dari gelas, menggelindingkan bola, melatih berdiri, serta berjalan dengan berpegangan.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+        function getCurrentUser() {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        }
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Anda telah logout.');
+            window.location.href = 'index.html';
+        }
+        function renderNavigation() {
+            const navLinks = document.querySelector('nav ul'); // Sesuaikan selector jika perlu
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+            if (currentUser) {
+                navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
+                     navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
+                navHTML += `<li><a href="login.html" onclick="logout()">Logout</a></li>`;
+            } else {
+                navHTML += `<li><a href="login.html">Login</a></li>`;
+            }
+            navLinks.innerHTML = navHTML;
+        }
+        // Jalankan saat halaman dimuat
+        renderNavigation();
+    </script>
+</body>
+</html>

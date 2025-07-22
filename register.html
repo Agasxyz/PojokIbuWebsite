@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Pojok Ibu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Pojok Ibu</a>
+            <nav>
+                <ul id="nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div class="container">
+                <h2>Buat Akun Baru</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="nama_lengkap">Nama Lengkap:</label>
+                        <input type="text" id="nama_lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Saya adalah:</label>
+                        <select id="role">
+                            <option value="user">Ibu / User Umum</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Register</button>
+                    <p style="text-align: center; margin-top: 20px;">
+                        Sudah punya akun? <a href="login.html">Login di sini</a>
+                    </p>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script>
+        // --- Bagian Logika Registrasi ---
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nama_lengkap = document.getElementById('nama_lengkap').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            const userExists = users.some(user => user.email === email);
+            if (userExists) {
+                alert('Email sudah terdaftar. Silakan gunakan email lain.');
+                return;
+            }
+
+            users.push({ nama: nama_lengkap, email, password, role });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Registrasi berhasil! Silakan login.');
+            window.location.href = 'login.html';
+        });
+
+        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+        function getCurrentUser() {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Anda telah logout.');
+            window.location.href = 'index.html';
+        }
+
+        function renderNavigation() {
+            const navLinks = document.getElementById('nav-links');
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+            if (currentUser) {
+                navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
+                     navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
+                navHTML += `<li><a href="login.html" onclick="logout()">Logout</a></li>`;
+            } else {
+                navHTML += `<li><a href="login.html">Login</a></li>`;
+            }
+            navLinks.innerHTML = navHTML;
+        }
+
+        // Jalankan saat halaman dimuat
+        renderNavigation();
+    </script>
+</body>
+</html>

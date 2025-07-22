@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips Nutrisi Penting Selama Kehamilan - Pojok Ibu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Pojok Ibu</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="forum.html">Forum Diskusi</a></li>
+                    <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                    <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="artikel" id="3">
+                <h1>Mengapa Imunisasi pada Anak Penting?</h1>
+                <p class="article-meta">Diposting oleh: Admin Pojok Ibu | 1 Juli 2025</p>
+                <img src="asset/imunisasi.jpeg" alt="Gambar Artikel Nutrisi Ibu Hamil">
+
+                <p>Imunisasi wajib pada anak memiliki berbagai fungsi penting yang berkontribusi terhadap kesehatan individu dan masyarakat. Berikut adalah beberapa fungsi utama dari imunisasi wajib pada anak:</p>
+
+                <h3>1. Mencegah Penyakit Menular Berbahaya </h3>
+                <p>Imunisasi dapat melindungi anak dari berbagai penyakit menular yang serius dan berpotensi fatal, seperti campak, polio, difteri, pertusis (batuk rejan), tetanus, hepatitis B, dan lain-lain. Jika anak tidak diberikan imunisasi dan terjangkit penyakit tersebut, kemungkinan komplikasi serius seperti kecacatan permanen dan kematian dapat terjadi.</p>
+
+                <h3>2. Melindungi Masyarakat Melalui Herd Immunity
+                </h3>
+                <p>Imunisasi dapat membantu menciptakan kekebalan kelompok (herd immunity), suatu kondisi di mana penyebaran penyakit di masyarakat dapat diminimalisir karena sebagian besar populasi telah divaksinasi. Kondisi ini sangat penting untuk melindungi masyarakat yang tidak dapat divaksinasi, seperti bayi yang terlalu muda atau individu dengan kondisi medis tertentu.</p>
+
+                <h3>3. Mengurangi Beban Ekonomi dan Sosial
+                </h3>
+                <p>Penyakit yang dapat dicegah dengan vaksin seringkali memerlukan perawatan medis yang mahal dan jangka panjang. Oleh karena itu, imunisasi dapat mengurangi biaya perawatan kesehatan dan mengurangi hilangnya produktivitas akibat penyakit, baik pada tingkat keluarga maupun masyarakat luas.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+        function getCurrentUser() {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        }
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Anda telah logout.');
+            window.location.href = 'index.html';
+        }
+        function renderNavigation() {
+            const navLinks = document.querySelector('nav ul'); // Sesuaikan selector jika perlu
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+           if (currentUser) {
+                navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
+                     navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
+                navHTML += `<li><a href="login.html" onclick="logout()">Logout</a></li>`;
+            } else {
+                navHTML += `<li><a href="login.html">Login</a></li>`;
+            }
+            navLinks.innerHTML = navHTML;
+        }
+        // Jalankan saat halaman dimuat
+        renderNavigation();
+    </script>
+</body>
+</html>

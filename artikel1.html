@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips Nutrisi Penting Selama Kehamilan - Pojok Ibu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Pojok Ibu</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="forum.html">Forum Diskusi</a></li>
+                    <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                    <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="artikel" id="1">
+                <h1>Kebutuhan Nutrisi Ibu Hamil</h1>
+                <p class="article-meta">Diposting oleh: Admin Pojok Ibu | 1 Juli 2025</p>
+                <img src="asset/nutrisi.jpg" alt="Gambar Artikel Nutrisi Ibu Hamil">
+
+                <p>Masa kehamilan adalah periode krusial di mana kebutuhan nutrisi ibu meningkat signifikan untuk mendukung perkembangan janin dan menjaga kesehatan ibu sendiri. Asupan gizi yang seimbang dan mencukupi akan memengaruhi tumbuh kembang bayi di dalam kandungan dan mengurangi risiko komplikasi kehamilan.</p>
+
+                <p>Berikut adalah beberapa nutrisi penting yang harus diperhatikan selama kehamilan:</p>
+
+                <h3>1. Asam Folat</h3>
+                <p>Asam folat sangat penting untuk mencegah cacat lahir pada otak dan tulang belakang bayi (defek tuba neural). Sumber asam folat bisa didapatkan dari sayuran berdaun hijau gelap, buah jeruk, kacang-kacangan, dan sereal yang difortifikasi. Disarankan untuk mengonsumsi suplemen asam folat sejak sebelum hamil dan selama trimester pertama.</p>
+
+                <h3>2. Zat Besi</h3>
+                <p>Kebutuhan zat besi meningkat drastis saat hamil karena volume darah ibu bertambah. Zat besi diperlukan untuk mencegah anemia, yang bisa menyebabkan kelelahan ekstrem dan risiko persalinan prematur. Sumber zat besi terbaik antara lain daging merah tanpa lemak, unggas, ikan, bayam, kacang lentil, dan sereal yang difortifikasi. Konsumsi vitamin C bersamaan dengan zat besi dapat membantu penyerapan.</p>
+
+                <h3>3. Kalsium</h3>
+                <p>Kalsium vital untuk pembentukan tulang dan gigi bayi. Jika asupan kalsium ibu kurang, tubuh akan mengambil kalsium dari tulang ibu. Sumber kalsium meliputi produk susu (susu, yogurt, keju), brokoli, kale, dan susu kedelai yang difortifikasi.</p>
+
+                <h3>4. Protein</h3>
+                <p>Protein adalah "blok bangunan" tubuh dan sangat penting untuk pertumbuhan jaringan bayi, termasuk otak, darah, dan otot. Ibu hamil disarankan untuk meningkatkan asupan protein dari daging tanpa lemak, ikan, telur, produk susu, serta sumber nabati seperti tahu, tempe, dan kacang-kacangan.</p>
+
+                <h3>5. Vitamin D</h3>
+                <p>Vitamin D bekerja sama dengan kalsium untuk membangun tulang dan gigi bayi yang kuat. Paparan sinar matahari pagi adalah sumber alami vitamin D, serta bisa didapatkan dari ikan berlemak (salmon, tuna) dan susu yang difortifikasi.</p>
+
+                <p>Selalu konsultasikan dengan dokter atau ahli gizi Anda mengenai kebutuhan nutrisi spesifik selama kehamilan. Suplemen mungkin diperlukan untuk memastikan semua kebutuhan gizi terpenuhi.</p>
+            </div>        
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+        function getCurrentUser() {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        }
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Anda telah logout.');
+            window.location.href = 'index.html';
+        }
+        function renderNavigation() {
+            const navLinks = document.querySelector('nav ul'); // Sesuaikan selector jika perlu
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+            if (currentUser) {
+                navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
+                     navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
+                navHTML += `<li><a href="login.html" onclick="logout()">Logout</a></li>`;
+            } else {
+                navHTML += `<li><a href="login.html">Login</a></li>`;
+            }
+            navLinks.innerHTML = navHTML;
+        }
+        // Jalankan saat halaman dimuat
+        renderNavigation();
+    </script>
+</body>
+</html>

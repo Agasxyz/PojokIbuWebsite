@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Dokter - Pojok Ibu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Pojok Ibu</a>
+            <nav>
+                <ul id="nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div class="container">
+                <div id="kode-akses-container">
+                    <h2>Akses Dashboard Dokter</h2>
+                    <p>Silakan masukkan kode khusus dokter untuk melanjutkan.</p>
+                    <form id="kode-akses-form" class="kotak" style="max-width: 400px; margin: 20px auto; padding: 30px;">
+                        <div class="form-group">
+                            <label for="kode_dokter" class="form-label">Kode Dokter:</label>
+                            <input type="password" id="kode_dokter" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn">Masuk</button>
+                        <p id="error-message" style="color: red; margin-top: 10px;"></p>
+                    </form>
+                </div>
+
+                <div id="dashboard-content" style="display: none;">
+                    <h2>Daftar Pertanyaan Masuk</h2>
+                    <div id="questions-list">
+                        </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script>
+        // --- Bagian Logika Dashboard Dokter (BARU DENGAN KODE AKSES) ---
+
+        // Kode rahasia untuk dokter. Untuk aplikasi nyata, ini tidak aman.
+        const DOKTER_KODE = 'DOKTER123';
+
+        const kodeAksesContainer = document.getElementById('kode-akses-container');
+        const dashboardContent = document.getElementById('dashboard-content');
+        const kodeAksesForm = document.getElementById('kode-akses-form');
+        const kodeInput = document.getElementById('kode_dokter');
+        const errorMessage = document.getElementById('error-message');
+
+        // Event listener untuk form kode akses
+        kodeAksesForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const inputKode = kodeInput.value;
+
+            if (inputKode === DOKTER_KODE) {
+                // Jika kode benar, sembunyikan form dan tampilkan dashboard
+                kodeAksesContainer.style.display = 'none';
+                dashboardContent.style.display = 'block';
+                loadQuestions(); // Muat pertanyaan setelah berhasil login
+            } else {
+                // Jika kode salah, tampilkan pesan error
+                errorMessage.textContent = 'Kode yang Anda masukkan salah. Coba lagi.';
+                kodeInput.value = ''; // Kosongkan input
+            }
+        });
+
+        function loadQuestions() {
+            const allQuestions = JSON.parse(localStorage.getItem('questions')) || [];
+            const questionsList = document.getElementById('questions-list');
+            questionsList.innerHTML = '';
+
+            if (allQuestions.length === 0) {
+                questionsList.innerHTML = '<p style="text-align:center;">Belum ada pertanyaan yang masuk.</p>';
+                return;
+            }
+            
+            allQuestions.sort((a, b) => (a.status > b.status) ? 1 : -1);
+
+            allQuestions.forEach(q => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'kotak';
+
+                let contentHTML = `
+                    <h3>${q.judul}</h3>
+                    <p><strong>Dari:</strong> ${q.ditanyakanOleh}</p>
+                    <p><strong>Pertanyaan:</strong> ${q.isi}</p>
+                    <p><strong>Status:</strong> <span style="font-weight:bold; color:${q.status === 'belum dijawab' ? 'red' : 'green'};">${q.status}</span></p>
+                `;
+
+                if (q.status === 'belum dijawab') {
+                    contentHTML += `
+                        <div class="form-group">
+                            <textarea id="jawaban-for-${q.id}" rows="4" placeholder="Tulis jawaban Anda di sini..."></textarea>
+                        </div>
+                        <button class="btn" onclick="submitAnswer(${q.id})">Kirim Jawaban</button>
+                    `;
+                } else {
+                    contentHTML += `
+                        <hr style="margin: 10px 0;">
+                        <p><strong>Jawaban dari dr. ${q.dijawabOleh}:</strong></p>
+                        <p>${q.jawaban}</p>
+                    `;
+                }
+                questionDiv.innerHTML = contentHTML;
+                questionsList.appendChild(questionDiv);
+            });
+        }
+
+        function submitAnswer(questionId) {
+            const currentUser = getCurrentUser() || { nama: 'Dokter' }; // Fallback jika tidak ada user login
+            const answerText = document.getElementById(`jawaban-for-${questionId}`).value;
+            if (!answerText.trim()) {
+                alert('Jawaban tidak boleh kosong.');
+                return;
+            }
+
+            const allQuestions = JSON.parse(localStorage.getItem('questions')) || [];
+            const questionIndex = allQuestions.findIndex(q => q.id === questionId);
+
+            if (questionIndex > -1) {
+                allQuestions[questionIndex].jawaban = answerText;
+                allQuestions[questionIndex].status = 'sudah dijawab';
+                allQuestions[questionIndex].dijawabOleh = currentUser.nama;
+                localStorage.setItem('questions', JSON.stringify(allQuestions));
+                alert('Jawaban berhasil dikirim.');
+                loadQuestions();
+            }
+        }
+
+        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+        function getCurrentUser() { return JSON.parse(localStorage.getItem('currentUser')); }
+        function logout() { localStorage.removeItem('currentUser'); alert('Anda telah logout.'); window.location.href = 'index.html'; }
+        function renderNavigation() {
+            const navLinks = document.getElementById('nav-links');
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+            if (currentUser) {
+                navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
+                     navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
+                navHTML += `<li><a href="#" onclick="logout()">Logout</a></li>`;
+            } else {
+                navHTML += `<li><a href="login.html">Login</a></li>`;
+                navHTML += `<li><a href="register.html">Register</a></li>`;
+            }
+            navLinks.innerHTML = navHTML;
+        }
+
+        // Jalankan render navigasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNavigation();
+        });
+    </script>
+</body>
+</html>

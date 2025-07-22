@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - Pojok Ibu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Pojok Ibu</a>
+            <nav>
+                <ul id="nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div class="container">
+                <h2 id="welcome-message">Selamat Datang!</h2>
+                
+                <div id="user-profile">
+                    <h3>Riwayat Pertanyaan Anda ke Dokter</h3>
+                    <div id="my-questions"></div>
+                </div>
+
+                <div id="doctor-dashboard-link" style="display: none; margin-top: 30px;">
+                    <a href="dashboard_dokter.html" class="btn">Lihat Dashboard Pertanyaan</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+    <script>
+        // --- Bagian Logika Halaman Profil ---
+        function initializeProfile() {
+            const currentUser = getCurrentUser();
+
+            if (!currentUser) {
+                // Jika tidak ada yang login, arahkan ke halaman login
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Tampilkan pesan selamat datang
+            document.getElementById('welcome-message').textContent = `Profil Ibu ${currentUser.nama}`;
+
+            
+
+            loadMyQuestions();
+        }
+
+        function loadMyQuestions() {
+            const currentUser = getCurrentUser();
+            const myQuestionsContainer = document.getElementById('my-questions');
+            const allQuestions = JSON.parse(localStorage.getItem('questions')) || [];
+
+            // Filter pertanyaan yang dibuat oleh pengguna saat ini
+            const myQuestions = allQuestions.filter(q => q.ditanyakanOleh === currentUser.nama);
+
+            if (myQuestions.length === 0) {
+                myQuestionsContainer.innerHTML = '<p style="text-align:center;">Anda belum pernah bertanya.</p>';
+                return;
+            }
+
+            myQuestionsContainer.innerHTML = '';
+            myQuestions.forEach(q => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'kotak'; // Menggunakan style .kotak
+
+                let answerHTML = q.status === 'sudah dijawab'
+                    ? `<hr style="margin: 10px 0;"><p><b>Jawaban dari dr. ${q.dijawabOleh}:</b> ${q.jawaban}</p>`
+                    : `<p><i>Menunggu jawaban dari dokter...</i></p>`;
+
+                questionDiv.innerHTML = `
+                    <h4>${q.judul}</h4>
+                    <p><b>Pertanyaan Anda:</b> ${q.isi}</p>
+                    <p><b>Status:</b> <span style="font-weight:bold; color:${q.status === 'belum dijawab' ? 'red' : 'green'};">${q.status}</span></p>
+                    ${answerHTML}
+                `;
+                myQuestionsContainer.appendChild(questionDiv);
+            });
+        }
+
+        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+        function getCurrentUser() { return JSON.parse(localStorage.getItem('currentUser')); }
+        function logout() { localStorage.removeItem('currentUser'); alert('Anda telah logout.'); window.location.href = 'index.html'; }
+        function renderNavigation() {
+            const navLinks = document.getElementById('nav-links');
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+            if (currentUser) {
+                navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
+                     navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
+                navHTML += `<li><a href="login.html" onclick="logout()">Logout</a></li>`;
+            } else {
+                navHTML += `<li><a href="login.html">Login</a></li>`;
+            }
+            navLinks.innerHTML = navHTML;
+        }
+
+        // Jalankan saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNavigation();
+            initializeProfile();
+        });
+    </script>
+</body>
+</html>
