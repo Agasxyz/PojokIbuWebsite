@@ -61,7 +61,7 @@
                 return;
             }
 
-            users.push({ nama: nama_lengkap, email, password, role });
+            users.push({ nama: nama_lengkap, email, password});
             localStorage.setItem('users', JSON.stringify(users));
 
             alert('Registrasi berhasil! Silakan login.');
