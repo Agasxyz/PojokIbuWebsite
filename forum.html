@@ -1,99 +1,192 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Forum Ibu - Pojok Ibu</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Diskusi - Pojok Ibu</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .post { border: 1px solid #ffe6f2; padding: 15px; margin-bottom: 15px; border-radius: 8px; background-color: #fef7ff; }
+        .post-author { font-weight: bold; color: #5d3a5a; }
+        .post-meta { font-size: 0.8em; color: #888; margin-bottom: 10px; }
+        .action-buttons button, .action-buttons a { background: none; border: none; color: #e88dcd; cursor: pointer; margin-right: 15px; font-size: 0.9em; text-decoration: none; }
+        .action-buttons button:hover, .action-buttons a:hover { text-decoration: underline; }
+        .replies { margin-top: 15px; margin-left: 30px; border-left: 3px solid #e88dcd; padding-left: 15px; }
+        .reply-form { margin-top: 10px; margin-left: 30px; }
+    </style>
 </head>
-
 <body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Pojok Ibu</a>
+            <nav>
+                <ul id="nav-links">
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="forum.html">Forum Diskusi</a></li>
+                    <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                    <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div class="container">
+                <h2>Forum Diskusi</h2>
+                <div id="login-prompt" style="display: none; text-align: center; padding: 20px; background-color: #fff3f8; border-radius: 8px;">
+                    <p>Silakan <a href="login.html">login</a> untuk berpartisipasi dalam forum.</p>
+                </div>
+                <form id="newPostForm" style="display: none; margin-bottom: 40px;">
+                    <h3>Buat Topik Baru</h3>
+                    <div class="form-group">
+                        <textarea id="postContent" rows="4" placeholder="Tuliskan pertanyaan atau cerita Anda..." required class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Kirim Topik</button>
+                </form>
+                <div id="postsContainer"></div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
+    </footer>
 
-  <header>
-    <div class="container">
-      <h2 class="logo">Pojok Ibu</h2>
-      <nav>
-        <ul>
-          <li><a href="index.html">Beranda</a></li>
-          <li><a href="forum.html">Forum Diskusi</a></li>
-          <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
-          <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <div class="container">
-    <form id="forum" class="needs-validation" novalidate>
-      <div class="mb-3">
-        <h2 style="text-align: center;">Buat Topik Baru</h2>
-        <label for="nama" class="form-label">Nama Pengguna</label>
-        <input type="text" class="form-control" id="nama" required>
-        <div class="invalid-feedback">Nama pengguna wajib diisi.</div>
-      </div>
+    <script>
+        // --- Bagian Logika Forum ---
+        const postsContainer = document.getElementById('postsContainer');
+        const newPostForm = document.getElementById('newPostForm');
+        const loginPrompt = document.getElementById('login-prompt');
+        
+        function initializeForum() {
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                loginPrompt.style.display = 'none';
+                newPostForm.style.display = 'block';
+            } else {
+                loginPrompt.style.display = 'block';
+                newPostForm.style.display = 'none';
+            }
+            loadPosts();
+        }
 
-      <div class="mb-3">
-        <label for="balas" class="form-label">Membalas dari</label>
-        <input type="text" class="form-control" id="balas">
-      </div>
+        function loadPosts() {
+            const allPosts = JSON.parse(localStorage.getItem('forumPosts')) || [];
+            postsContainer.innerHTML = '';
+            const mainPosts = allPosts.filter(post => !post.induk);
+            mainPosts.forEach(post => {
+                const postElement = createPostElement(post, allPosts);
+                postsContainer.appendChild(postElement);
+            });
+        }
 
-      <div class="mb-3">
-        <label for="isi" class="form-label">Isi Topik</label>
-        <textarea id="isi" class="form-control" rows="4" required></textarea>
-        <div class="invalid-feedback">Isi topik wajib diisi.</div>
-      </div>
+        function createPostElement(post, allPosts) {
+            const currentUser = getCurrentUser();
+            const postDiv = document.createElement('div');
+            postDiv.className = 'post';
+            postDiv.dataset.id = post.id;
+            let actionButtonsHTML = `<a href="#" onclick="showReplyForm(${post.id})">Balas</a>`;
+            if (currentUser && currentUser.nama === post.penulis) {
+                actionButtonsHTML += `<a href="#" onclick="deletePost(${post.id})">Hapus</a>`;
+            }
+            postDiv.innerHTML = `
+                <p class="post-author">${post.penulis}</p>
+                <p class="post-meta">${new Date(post.timestamp).toLocaleString()}</p>
+                <p>${post.isi}</p>
+                <div class="action-buttons">${actionButtonsHTML}</div>
+                <div class="replies" id="replies-for-${post.id}"></div>
+                <div class="reply-form" id="reply-form-for-${post.id}"></div>`;
+            const repliesContainer = postDiv.querySelector(`#replies-for-${post.id}`);
+            const replies = allPosts.filter(p => p.induk === post.id);
+            replies.forEach(reply => {
+                const replyElement = createPostElement(reply, allPosts);
+                repliesContainer.appendChild(replyElement);
+            });
+            return postDiv;
+        }
 
-      <button type="submit" onclick="berhasil()" class="button">Kirim Topik</button>
-    </form>
-  </div>
+        newPostForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const currentUser = getCurrentUser();
+            const postContent = document.getElementById('postContent').value;
+            if (!postContent.trim()) return;
+            const allPosts = JSON.parse(localStorage.getItem('forumPosts')) || [];
+            const newPost = { id: Date.now(), isi: postContent, penulis: currentUser.nama, timestamp: new Date().toISOString(), induk: null };
+            allPosts.push(newPost);
+            localStorage.setItem('forumPosts', JSON.stringify(allPosts));
+            document.getElementById('postContent').value = '';
+            loadPosts();
+        });
 
-  <div class="container">
-    <div class="forum-list" id="daftarTopik">
-      <h2 style="text-align: center;">Topik Diskusi</h2>
-      <div class="topik">
-      <h4>Santi</h4>
-      <p>Hallo bun, ini anaku kok gini ya?</p>
-      </div>
-      <div class="topik">
-      <h4>Harjiem</h4>
-      <h6>Membalas Santi</h6>
-      <p>Gejala awalnya gimana bund?</p>
-      </div>
-    </div>
-  </div>
+        function showReplyForm(postId) {
+            const replyFormContainer = document.getElementById(`reply-form-for-${postId}`);
+            replyFormContainer.innerHTML = `
+                <form onsubmit="handleReply(event, ${postId})">
+                    <textarea rows="2" placeholder="Tulis balasan..." required></textarea>
+                    <button type="submit" class="btn" style="margin-top:5px;">Kirim Balasan</button>
+                </form>`;
+        }
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        function handleReply(event, postId) {
+            event.preventDefault();
+            const currentUser = getCurrentUser();
+            const replyContent = event.target.querySelector('textarea').value;
+            if (!replyContent.trim()) return;
+            const allPosts = JSON.parse(localStorage.getItem('forumPosts')) || [];
+            const newReply = { id: Date.now(), isi: replyContent, penulis: currentUser.nama, timestamp: new Date().toISOString(), induk: postId };
+            allPosts.push(newReply);
+            localStorage.setItem('forumPosts', JSON.stringify(allPosts));
+            loadPosts();
+        }
 
-  <!-- Script Validasi Bootstrap -->
-<script>
-  (() => {
-    'use strict'
+        function deletePost(postId) {
+            if (!confirm('Yakin ingin menghapus postingan ini dan semua balasannya?')) return;
+            let allPosts = JSON.parse(localStorage.getItem('forumPosts')) || [];
+            const postsToDelete = new Set([postId]);
+            let changed = true;
+            while(changed) {
+                changed = false;
+                allPosts.forEach(post => {
+                    if(post.induk && postsToDelete.has(post.induk) && !postsToDelete.has(post.id)) {
+                        postsToDelete.add(post.id);
+                        changed = true;
+                    }
+                });
+            }
+            const remainingPosts = allPosts.filter(p => !postsToDelete.has(p.id));
+            localStorage.setItem('forumPosts', JSON.stringify(remainingPosts));
+            loadPosts();
+        }
 
-    const form = document.getElementById('forum');
+        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+        function getCurrentUser() { return JSON.parse(localStorage.getItem('currentUser')); }
+        function logout() { localStorage.removeItem('currentUser'); alert('Anda telah logout.'); window.location.href = 'index.html'; }
+        function renderNavigation() {
+            const navLinks = document.getElementById('nav-links');
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+            if (currentUser) {
+                navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
+                     navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
+                navHTML += `<li><a href="login.html" onclick="logout()">Logout</a></li>`;
+            } else {
+                navHTML += `<li><a href="login.html">Login</a></li>`;
+            }
+            navLinks.innerHTML = navHTML;
+        }
 
-    form.addEventListener('submit', function (event) {
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      } else {
-        event.preventDefault();
-        alert("Pesan telah terkirim.");
-        form.reset();
-        form.classList.remove('was-validated');
-      }
-
-      form.classList.add('was-validated');
-    });
-  })();
-</script>
-
-
-  <footer>
-
-    <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
-
-  </footer>
+        // Jalankan saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNavigation();
+            initializeForum();
+        });
+    </script>
 </body>
-
 </html>
