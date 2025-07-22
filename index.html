@@ -16,6 +16,7 @@
                     <li><a href="forum.html">Forum Diskusi</a></li>
                     <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
                     <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+                    <li><a href="dashboard_dokter.html">Dashboard</a></li>
                 </ul>
             </nav>
         </div>
@@ -63,17 +64,17 @@
                     <div class="kotak">
                         <h3>Tips Nutrisi Ibu Hamil</h3>
                         <p>Panduan lengkap nutrisi penting selama masa kehamilan untuk ibu dan bayi sehat.</p>
-                        <a href="artikel.html#1" class="btn btn-secondary">Baca Selengkapnya</a>
+                        <a href="artikel1.html" class="btn btn-secondary">Baca Selengkapnya</a>
                     </div>
                     <div class="kotak">
                         <h3>Stimulasi Tumbuh Kembang Bayi</h3>
                         <p>Ide aktivitas menyenangkan untuk mendukung perkembangan motorik dan kognitif si kecil.</p>
-                        <a href="artikel.html#2" class="btn btn-secondary">Baca Selengkapnya</a>
+                        <a href="artikel2.html" class="btn btn-secondary">Baca Selengkapnya</a>
                     </div>
                     <div class="kotak">
                         <h3>Pentingnya Imunisasi Anak</h3>
                         <p>Memahami jadwal dan manfaat imunisasi untuk melindungi buah hati dari berbagai penyakit.</p>
-                        <a href="artikel.html#3" class="btn btn-secondary">Baca Selengkapnya</a>
+                        <a href="artikel3.html" class="btn btn-secondary">Baca Selengkapnya</a>
                     </div>
                     <div class="tombol">
                       <a href="artikel.html">Baca Lainnya &#8594;</a>
@@ -89,5 +90,38 @@
             <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
         
     </footer>
+
+    <script>
+        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+        function getCurrentUser() {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        }
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Anda telah logout.');
+            window.location.href = 'login.html';
+        }
+        function renderNavigation() {
+            const navLinks = document.querySelector('nav ul'); // Sesuaikan selector jika perlu
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+            if (currentUser) {
+                navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
+                     navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
+                navHTML += `<li><a href="login.html" onclick="logout()">Logout</a></li>`;
+            } else {
+                navHTML += `<li><a href="login.html">Login</a></li>`;
+            }
+            navLinks.innerHTML = navHTML;
+        }
+        // Jalankan saat halaman dimuat
+        renderNavigation();
+    </script>
 </body>
 </html>
