@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -374,7 +373,7 @@ input, textarea {
 }
 
 p {
-    text-allign: center;
+    text-align: center;
 } 
 
 footer {
