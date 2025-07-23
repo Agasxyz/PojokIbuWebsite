@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips Nutrisi Penting Selama Kehamilan - Pojok Ibu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Pojok Ibu</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="forum.html">Forum Diskusi</a></li>
+                    <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                    <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="artikel" id="1">
+                <h1>Sayuran yang Kaya Zat Besi untuk Perkembangan Anak</h1>
+                <p class="article-meta">Diposting oleh: Admin Pojok Ibu | 1 Juli 2025</p>
+                <img src="asset/sayuran.jpg" alt="Gambar Artikel Sayuranl">
+
+                <p>Beberapa jenis sayuran dan buah dapat membantu memenuhi kebutuhan zat besi harian anak.</p>
+
+                <p>Berikut pilihan yang dapat dikonsumsi secara rutin:</p>
+
+                <h3>1.Bayam</h3>
+                <p>Dalam setiap 100 gram bayam terkandung sekitar 1,05 mg zat besi, mencukupi hingga 15% kebutuhan zat besi harian untuk anak usia 1–5 tahun. Bayam juga kaya akan vitamin A dan C yang dapat meningkatkan penyerapan zat besi oleh tubuh.</p>
+
+                <h3>2. Kangkung</h3>
+                <p>Kangkung segar mengandung sekitar 2,3 mg zat besi per 100 gram. Jumlah ini mencakup sekitar 30% kebutuhan harian anak usia 1–3 tahun dan 21% untuk anak usia 4–6 tahun. Untuk menjaga nutrisinya, kangkung sebaiknya dimasak dengan sedikit minyak, seperti ditumis ringan.</p>
+
+                <h3>3. Sawi</h3>
+                <p>Setiap 100 gram sawi mengandung sekitar 2,9 mg zat besi, yang setara dengan 41% kebutuhan harian anak usia 1–3 tahun, serta 29% untuk usia 4–6 tahun. Sawi bisa diolah menjadi sup atau ditumis singkat agar kandungan gizinya tetap terjaga.
+                </p>
+
+                <h3>4. Brokoli</h3>
+                <p>Brokoli mengandung sekitar 0,73 mg zat besi per 100 gram, memenuhi sekitar 10% dari kebutuhan harian anak usia 1–3 tahun. Sayuran ini juga merupakan sumber serat yang baik untuk mendukung kesehatan saluran cerna.</p>
+
+                <h3>5. Kacang Kedelai</h3>
+                <p>Dalam 100 gram kacang kedelai terkandung sekitar 6,9 mg zat besi, yang dapat mencukupi hingga 92% kebutuhan zat besi anak usia 1–3 tahun. Selain itu, kedelai juga kaya protein nabati yang berperan penting dalam pertumbuhan otot dan jaringan tubuh anak.
+                </p>
+            </div>        
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+        function getCurrentUser() {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        }
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Anda telah logout.');
+            window.location.href = 'index.html';
+        }
+        function renderNavigation() {
+            const navLinks = document.querySelector('nav ul'); // Sesuaikan selector jika perlu
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+            if (currentUser) {
+                navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
+                     navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
+                navHTML += `<li><a href="login.html" onclick="logout()">Logout</a></li>`;
+            } else {
+                navHTML += `<li><a href="login.html">Login</a></li>`;
+            }
+            navLinks.innerHTML = navHTML;
+        }
+        // Jalankan saat halaman dimuat
+        renderNavigation();
+    </script>
+</body>
+</html>

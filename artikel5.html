@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips Nutrisi Penting Selama Kehamilan - Pojok Ibu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Pojok Ibu</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="forum.html">Forum Diskusi</a></li>
+                    <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                    <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="artikel" id="1">
+                <h1>Jenis Imunisasi Wajib untuk Bayi 1 Bulan</h1>
+                <p class="article-meta">Diposting oleh: Admin Pojok Ibu | 1 Juli 2025</p>
+                <img src="asset/imunisasi.jpg" alt="Gambar Artikel Imunisasi">
+
+                <p>Berikut daftar imunisasi wajib untuk Bayi 1 Bulan:</p>
+
+                <h3>1. Polio</h3>
+                <p>Imunisasi polio diberikan sebanyak empat kali selama masa bayi. Dosis pertama berupa vaksin tetes (OPV) sebaiknya diberikan segera setelah lahir atau maksimal pada usia 1 bulan. Dosis berikutnya diberikan saat bayi berusia 2, 3, dan 4 bulan. Vaksin ini sangat penting karena dapat mencegah penyakit polio yang bisa menyebabkan kelumpuhan permanen pada anak.</p>
+
+                <h3>2. BCG (Bacillus Calmette–Guérin)</h3>
+                <p>Vaksin BCG diberikan satu kali dalam rentang usia 0–2 bulan, sehingga usia 1 bulan menjadi waktu yang tepat bila belum mendapatkannya saat lahir. Vaksin ini berfungsi melindungi bayi dari penyakit tuberkulosis (TBC), terutama bentuk TBC berat seperti meningitis TB dan TBC milier. Pemberian BCG sangat penting di negara dengan tingkat kasus TBC yang tinggi seperti Indonesia.</p>
+
+                <h3>3. Hepatitis B (Dosis Kedua)</h3>
+                <p>Vaksin Hepatitis B dosis pertama diberikan saat bayi lahir. Dosis kedua diberikan pada usia 1 bulan untuk memperkuat sistem imun dalam melawan virus hepatitis B. Vaksin ini membantu mencegah infeksi kronis yang bisa berdampak jangka panjang pada hati.</p>
+            </div>        
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+        function getCurrentUser() {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        }
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Anda telah logout.');
+            window.location.href = 'index.html';
+        }
+        function renderNavigation() {
+            const navLinks = document.querySelector('nav ul'); // Sesuaikan selector jika perlu
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+            if (currentUser) {
+                navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
+                     navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
+                navHTML += `<li><a href="login.html" onclick="logout()">Logout</a></li>`;
+            } else {
+                navHTML += `<li><a href="login.html">Login</a></li>`;
+            }
+            navLinks.innerHTML = navHTML;
+        }
+        // Jalankan saat halaman dimuat
+        renderNavigation();
+    </script>
+</body>
+</html>
