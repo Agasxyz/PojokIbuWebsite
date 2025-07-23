@@ -3,195 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rekomendasi Posyandu - Pojok Ibu</title>
+    <title>Dashboard Dokter - Pojok Ibu</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <div class="container">
-            <h2 class="logo">Pojok Ibu</h2>
+            <a href="index.html" class="logo">Pojok Ibu</a>
             <nav>
-                <ul>
-                    <li><a href="index.html">Beranda</a></li>
-                    <li><a href="forum.html">Forum Diskusi</a></li>
-                    <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
-                    <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
-                </ul>
+                <ul id="nav-links"></ul>
             </nav>
         </div>
     </header>
-
     <main>
         <section>
             <div class="container">
-                <h2>Temukan Posyandu Terdekat</h2>
-                <form id="posyanduForm" onsubmit="return showPosyanduResults(event)">
-                    <div class="form-group">
-                        <label for="provinsi">Pilih Kecamatan:</label>
-                        <select id="kecamatan" name="kecamatan" required>
-                            <option value="">-- Pilih Kecamatan --</option>
-                            <option value="seyegan">Seyegan</option>
-                            </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="kalurahan">Pilih:</label>
-                        <select id="kalurahan" name="kalurahan" required>
-                            <option value="">-- Pilih Kalurahan --</option>
-                            <option value="margomulyo">Margomulyo</option>
-                            <option value="margokaton">Margokaton</option>
-                            <option value="margodadi">Margodadi</option>
-                            
-                        </select>
-                    </div>
-                    <button type="submit" class="btn">Cari Posyandu</button>
-                </form>
-
-                <div id="margomulyo" class="posyandu-list" style="margin-top: 60px; display: none;">
-                    <h3>Hasil Pencarian Posyandu di <span id="selected_margomulyo"></span></h3>
-                    <div class="kotak">
-                        <h3>Posyandu Melati</h3>
-                        <p>Alamat: Jl. Kamal Wetan No. 12, Margomulyo, Seyegan, Sleman</p>
-                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Selasa, Minggu ke-2 & ke-4, Pukul 09.00 - 12.00 WIB</p>
-                        <p>Kontak: 0881-8909-765</p>
-                    </div>
-                    <div class="kotak">
-                        <h3>Posyandu Mawar</h3>
-                        <p>Alamat: Jl. Kasuran No. 5, Margomulyo, Seyegan, Sleman</p>
-                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Kamis, Minggu ke-1 & ke-3, Pukul 08.30 - 11.30 WIB</p>
-                        <p>Kontak: 0812-3456-789</p>
-                    </div>
-                     <div class="kotak">
-                        <h3>Posyandu Kamboja</h3>
-                        <p>Alamat: Jl. Sompokan No. 56, Margomulyo, Seyegan, Sleman</p>
-                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Jumat, Minggu ke-2, Pukul 09.00 - 13.00 WIB</p>
-                        <p>Kontak: 0838-9381-889</p>
-                    </div>
+                <div id="kode-akses-container">
+                    <h2>Akses Dashboard Dokter</h2>
+                    <p>Silakan masukkan kode khusus dokter untuk melanjutkan.</p>
+                    <form id="kode-akses-form" class="kotak" style="max-width: 400px; margin: 20px auto; padding: 30px;">
+                        <div class="form-group">
+                            <label for="kode_dokter" class="form-label">Kode Dokter:</label>
+                            <input type="password" id="kode_dokter" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn">Masuk</button>
+                        <p id="error-message" style="color: red; margin-top: 10px;"></p>
+                    </form>
                 </div>
 
-                <div id="margokaton" class="posyandu-list" style="margin-top: 60px; display: none;">
-                    <h3>Hasil Pencarian Posyandu di <span id="selected_margokaton"></span></h3>
-                    <div class="kotak">
-                        <h3>Posyandu Gajah</h3>
-                        <p>Alamat: Jl. Gentan No. 90, Margokaton, Seyegan, Sleman</p>
-                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Selasa, Minggu ke-2 & ke-4, Pukul 09.00 - 12.00 WIB</p>
-                        <p>Kontak: 0835-7364-6464</p>
-                    </div>
-                    <div class="kotak">
-                        <h3>Posyandu Kuda</h3>
-                        <p>Alamat: Jl. Diponegoro No. 7, Margokaton, Seyegan, Sleman</p>
-                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Kamis, Minggu ke-1 & ke-3, Pukul 08.30 - 11.30 WIB</p>
-                        <p>Kontak: 0875-7384-7346</p>
-                    </div>
-                     <div class="kotak">
-                        <h3>Posyandu Domba</h3>
-                        <p>Alamat: Jl. Alaska No. 63, Margokaton, Seyegan, Sleman</p>
-                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Jumat, Minggu ke-2, Pukul 09.00 - 13.00 WIB</p>
-                        <p>Kontak: 0834-3463-3432</p>
-                    </div>
-                </div>
-
-                <div id="margodadi" class="posyandu-list" style="margin-top: 60px; display: none;">
-                    <h3>Hasil Pencarian Posyandu di <span id="selected_margodadi"></span></h3>
-                    <div class="kotak">
-                        <h3>Posyandu Durian</h3>
-                        <p>Alamat: Jl. Hasanudin No. 90, Margodadi, Seyegan, Sleman</p>
-                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Selasa, Minggu ke-2 & ke-4, Pukul 09.00 - 12.00 WIB</p>
-                        <p>Kontak: 0886-9864-7547</p>
-                    </div>
-                    <div class="kotak">
-                        <h3>Posyandu Nanas</h3>
-                        <p>Alamat: Jl. Kartini No. 13, Margodadi, Seyegan, Sleman</p>
-                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Kamis, Minggu ke-1 & ke-3, Pukul 08.30 - 11.30 WIB</p>
-                        <p>Kontak: 0812-3456-785</p>
-                    </div>
-                     <div class="kotak">
-                        <h3>Posyandu Pepaya</h3>
-                        <p>Alamat: Jl. Wahidin No. 88, Margodadi, Seyegan, Sleman</p>
-                        <p><strong>Jadwal Pelaksanaan:</strong> Setiap hari Jumat, Minggu ke-2, Pukul 09.00 - 13.00 WIB</p>
-                        <p>Kontak: 0834-8383-8112</p>
-                    </div>
+                <div id="dashboard-content" style="display: none;">
+                    <h2>Daftar Pertanyaan Masuk</h2>
+                    <div id="questions-list">
+                        </div>
                 </div>
             </div>
         </section>
     </main>
-
     <footer>
-        <div class="container">
-            <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
-        </div>
+        <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
     </footer>
 
     <script>
-        function showPosyanduResults(event) {
-            event.preventDefault();
+        // --- Bagian Logika Dashboard Dokter (BARU DENGAN KODE AKSES) ---
 
-            const kecamatan = document.getElementById('kecamatan').value;
-            const kalurahan = document.getElementById('kalurahan').value;
-            const selectedLocationSpan = document.getElementById('selected_margomulyo');
-            const selectedLocationSpan2 = document.getElementById('selected_margokaton');
-            const selectedLocationSpan3 = document.getElementById('selected_margodadi');
-            const posyanduResultsDiv = document.getElementById('margomulyo');
-            const posyanduResultsDiv2 = document.getElementById('margokaton');
-            const posyanduResultsDiv3 = document.getElementById('margodadi');
+        // Kode rahasia untuk dokter. Untuk aplikasi nyata, ini tidak aman.
+        const DOKTER_KODE = 'DOKTER123';
 
-            if (kalurahan=='margomulyo') {
-                const kecamatanTeks = document.getElementById('kecamatan').options[document.getElementById('kecamatan').selectedIndex].text;
-                const kalurahanTeks = document.getElementById('kalurahan').options[document.getElementById('kalurahan').selectedIndex].text;
+        const kodeAksesContainer = document.getElementById('kode-akses-container');
+        const dashboardContent = document.getElementById('dashboard-content');
+        const kodeAksesForm = document.getElementById('kode-akses-form');
+        const kodeInput = document.getElementById('kode_dokter');
+        const errorMessage = document.getElementById('error-message');
 
-                selectedLocationSpan.textContent = `${kalurahanTeks}, ${kecamatanTeks}`;
-                posyanduResultsDiv.style.display = 'block'; 
-            } else if (kalurahan=='margokaton'){
-                const kecamatanTeks = document.getElementById('kecamatan').options[document.getElementById('kecamatan').selectedIndex].text;
-                const kalurahanTeks = document.getElementById('kalurahan').options[document.getElementById('kalurahan').selectedIndex].text;
+        // Event listener untuk form kode akses
+        kodeAksesForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const inputKode = kodeInput.value;
 
-                selectedLocationSpan2.textContent = `${kalurahanTeks}, ${kecamatanTeks}`;
-                posyanduResultsDiv2.style.display = 'block'; 
-            } else if (kalurahan=='margodadi'){
-                const kecamatanTeks = document.getElementById('kecamatan').options[document.getElementById('kecamatan').selectedIndex].text;
-                const kalurahanTeks = document.getElementById('kalurahan').options[document.getElementById('kalurahan').selectedIndex].text;
-
-                selectedLocationSpan3.textContent = `${kalurahanTeks}, ${kecamatanTeks}`;
-                posyanduResultsDiv3.style.display = 'block'; 
+            if (inputKode === DOKTER_KODE) {
+                // Jika kode benar, sembunyikan form dan tampilkan dashboard
+                kodeAksesContainer.style.display = 'none';
+                dashboardContent.style.display = 'block';
+                loadQuestions(); // Muat pertanyaan setelah berhasil login
+            } else {
+                // Jika kode salah, tampilkan pesan error
+                errorMessage.textContent = 'Kode yang Anda masukkan salah. Coba lagi.';
+                kodeInput.value = ''; // Kosongkan input
             }
-             else {
-                alert('Mohon lengkapi pilihan kecamatan dan kalurahan.');
-                posyanduResultsDiv.style.display = 'none';
+        });
+
+        function loadQuestions() {
+            const allQuestions = JSON.parse(localStorage.getItem('questions')) || [];
+            const questionsList = document.getElementById('questions-list');
+            questionsList.innerHTML = '';
+
+            if (allQuestions.length === 0) {
+                questionsList.innerHTML = '<p style="text-align:center;">Belum ada pertanyaan yang masuk.</p>';
+                return;
             }
-            return false; 
+            
+            allQuestions.sort((a, b) => (a.status > b.status) ? 1 : -1);
+
+            allQuestions.forEach(q => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'kotak';
+
+                let contentHTML = `
+                    <h3>${q.judul}</h3>
+                    <p><strong>Dari:</strong> ${q.ditanyakanOleh}</p>
+                    <p><strong>Pertanyaan:</strong> ${q.isi}</p>
+                    <p><strong>Status:</strong> <span style="font-weight:bold; color:${q.status === 'belum dijawab' ? 'red' : 'green'};">${q.status}</span></p>
+                `;
+
+                if (q.status === 'belum dijawab') {
+                    contentHTML += `
+                        <div class="form-group">
+                            <textarea id="jawaban-for-${q.id}" rows="4" placeholder="Tulis jawaban Anda di sini..."></textarea>
+                        </div>
+                        <button class="btn" onclick="submitAnswer(${q.id})">Kirim Jawaban</button>
+                    `;
+                } else {
+                    contentHTML += `
+                        <hr style="margin: 10px 0;">
+                        <p><strong>Jawaban dari dr. ${q.dijawabOleh}:</strong></p>
+                        <p>${q.jawaban}</p>
+                    `;
+                }
+                questionDiv.innerHTML = contentHTML;
+                questionsList.appendChild(questionDiv);
+            });
         }
-    </script>
 
-<script>
-    // --- Bagian Umum untuk Autentikasi & Navigasi ---
-    function getCurrentUser() {
-        return JSON.parse(localStorage.getItem('currentUser'));
-    }
-    function logout() {
-        localStorage.removeItem('currentUser');
-        alert('Anda telah logout.');
-        window.location.href = 'index.html';
-    }
-    function renderNavigation() {
-        const navLinks = document.querySelector('nav ul'); // Sesuaikan selector jika perlu
-        if (!navLinks) return;
-        const currentUser = getCurrentUser();
-        let navHTML = `
-            <li><a href="index.html">Beranda</a></li>
-            <li><a href="forum.html">Forum Diskusi</a></li>
-            <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
-            <li><a href="rekomendasi_posyandu.html" style="color: #e88dcd;">Rekomendasi Posyandu</a></li>
-        `;
-        if (currentUser) {
+        function submitAnswer(questionId) {
+            const currentUser = getCurrentUser() || { nama: 'Dokter' }; // Fallback jika tidak ada user login
+            const answerText = document.getElementById(`jawaban-for-${questionId}`).value;
+            if (!answerText.trim()) {
+                alert('Jawaban tidak boleh kosong.');
+                return;
+            }
+
+            const allQuestions = JSON.parse(localStorage.getItem('questions')) || [];
+            const questionIndex = allQuestions.findIndex(q => q.id === questionId);
+
+            if (questionIndex > -1) {
+                allQuestions[questionIndex].jawaban = answerText;
+                allQuestions[questionIndex].status = 'sudah dijawab';
+                allQuestions[questionIndex].dijawabOleh = currentUser.nama;
+                localStorage.setItem('questions', JSON.stringify(allQuestions));
+                alert('Jawaban berhasil dikirim.');
+                loadQuestions();
+            }
+        }
+
+        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+        function getCurrentUser() { return JSON.parse(localStorage.getItem('currentUser')); }
+        function logout() { localStorage.removeItem('currentUser'); alert('Anda telah logout.'); window.location.href = 'index.html'; }
+        function renderNavigation() {
+            const navLinks = document.getElementById('nav-links');
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+            if (currentUser) {
                 navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
-                     navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
-                navHTML += `<li><a href="login.html" onclick="logout()">Logout</a></li>`;
+                     navHTML += `<li><a href="dashboard_dokter.html"  style="color: #e88dcd;">Dashboard</a></li>`;
+                navHTML += `<li><a href="#" onclick="logout()">Logout</a></li>`;
             } else {
                 navHTML += `<li><a href="login.html">Login</a></li>`;
+                navHTML += `<li><a href="register.html">Register</a></li>`;
             }
-        navLinks.innerHTML = navHTML;
-    }
-    // Jalankan saat halaman dimuat
-    renderNavigation();
-</script>
+            navLinks.innerHTML = navHTML;
+        }
+
+        // Jalankan render navigasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNavigation();
+        });
+    </script>
 </body>
 </html>
