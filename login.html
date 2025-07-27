@@ -41,7 +41,6 @@
     </footer>
 
     <script>
-        // --- Bagian Logika Login ---
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = document.getElementById('email').value;
@@ -57,8 +56,9 @@
                 alert('Email atau password salah.');
             }
         });
-
-        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+    </script>
+    
+    <script>
         function getCurrentUser() {
             return JSON.parse(localStorage.getItem('currentUser'));
         }
@@ -86,8 +86,6 @@
             }
             navLinks.innerHTML = navHTML;
         }
-
-        // Jalankan saat halaman dimuat
         renderNavigation();
     </script>
 </body>
