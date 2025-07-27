@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tips Nutrisi Penting Selama Kehamilan - Pojok Ibu</title>
+    <title>3 Jenis Imunisasi Wajib untuk Bayi 1 Bulan - Pojok Ibu</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,7 +24,7 @@
     <main>
         <div class="container">
             <div class="artikel" id="1">
-                <h1>Jenis Imunisasi Wajib untuk Bayi 1 Bulan</h1>
+                <h1>3 Jenis Imunisasi Wajib untuk Bayi 1 Bulan</h1>
                 <p class="article-meta">Diposting oleh: Admin Pojok Ibu | 1 Juli 2025</p>
                 <img src="asset/imunisasi.jpg" alt="Gambar Artikel Imunisasi">
 
@@ -49,8 +49,7 @@
     </footer>
 
     <script>
-        // --- Bagian Umum untuk Autentikasi & Navigasi ---
-        function getCurrentUser() {
+         function getCurrentUser() {
             return JSON.parse(localStorage.getItem('currentUser'));
         }
         function logout() {
@@ -59,7 +58,7 @@
             window.location.href = 'index.html';
         }
         function renderNavigation() {
-            const navLinks = document.querySelector('nav ul'); // Sesuaikan selector jika perlu
+            const navLinks = document.querySelector('nav ul');
             if (!navLinks) return;
             const currentUser = getCurrentUser();
             let navHTML = `
@@ -77,7 +76,6 @@
             }
             navLinks.innerHTML = navHTML;
         }
-        // Jalankan saat halaman dimuat
         renderNavigation();
     </script>
 </body>
