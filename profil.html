@@ -35,46 +35,31 @@
         <p>&copy; 2025 Pojok Ibu. Semua Hak Cipta Dilindungi.</p>
     </footer>
     <script>
-        // --- Bagian Logika Halaman Profil ---
         function initializeProfile() {
             const currentUser = getCurrentUser();
-
             if (!currentUser) {
-                // Jika tidak ada yang login, arahkan ke halaman login
                 window.location.href = 'login.html';
                 return;
             }
-            
-            // Tampilkan pesan selamat datang
             document.getElementById('welcome-message').textContent = `Profil Ibu ${currentUser.nama}`;
-
-            
-
             loadMyQuestions();
         }
-
         function loadMyQuestions() {
             const currentUser = getCurrentUser();
             const myQuestionsContainer = document.getElementById('my-questions');
             const allQuestions = JSON.parse(localStorage.getItem('questions')) || [];
-
-            // Filter pertanyaan yang dibuat oleh pengguna saat ini
             const myQuestions = allQuestions.filter(q => q.ditanyakanOleh === currentUser.nama);
-
             if (myQuestions.length === 0) {
                 myQuestionsContainer.innerHTML = '<p style="text-align:center;">Anda belum pernah bertanya.</p>';
                 return;
             }
-
             myQuestionsContainer.innerHTML = '';
             myQuestions.forEach(q => {
                 const questionDiv = document.createElement('div');
-                questionDiv.className = 'kotak'; // Menggunakan style .kotak
-
+                questionDiv.className = 'kotak'; 
                 let answerHTML = q.status === 'sudah dijawab'
                     ? `<hr style="margin: 10px 0;"><p><b>Jawaban dari dr. ${q.dijawabOleh}:</b> ${q.jawaban}</p>`
                     : `<p><i>Menunggu jawaban dari dokter...</i></p>`;
-
                 questionDiv.innerHTML = `
                     <h4>${q.judul}</h4>
                     <p><b>Pertanyaan Anda:</b> ${q.isi}</p>
@@ -84,8 +69,6 @@
                 myQuestionsContainer.appendChild(questionDiv);
             });
         }
-
-        // --- Bagian Umum untuk Autentikasi & Navigasi ---
         function getCurrentUser() { return JSON.parse(localStorage.getItem('currentUser')); }
         function logout() { localStorage.removeItem('currentUser'); alert('Anda telah logout.'); window.location.href = 'index.html'; }
         function renderNavigation() {
@@ -107,8 +90,6 @@
             }
             navLinks.innerHTML = navHTML;
         }
-
-        // Jalankan saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
             renderNavigation();
             initializeProfile();
