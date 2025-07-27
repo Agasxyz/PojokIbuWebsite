@@ -162,35 +162,34 @@
     </script>
 
 <script>
-    // --- Bagian Umum untuk Autentikasi & Navigasi ---
-    function getCurrentUser() {
-        return JSON.parse(localStorage.getItem('currentUser'));
-    }
-    function logout() {
-        localStorage.removeItem('currentUser');
-        alert('Anda telah logout.');
-        window.location.href = 'index.html';
-    }
-    function renderNavigation() {
-        const navLinks = document.querySelector('nav ul'); // Sesuaikan selector jika perlu
-        if (!navLinks) return;
-        const currentUser = getCurrentUser();
-        let navHTML = `
-            <li><a href="index.html">Beranda</a></li>
-            <li><a href="forum.html">Forum Diskusi</a></li>
-            <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
-            <li><a href="rekomendasi_posyandu.html" style="color: #e88dcd;">Rekomendasi Posyandu</a></li>
-        `;
-        if (currentUser) {
+      function getCurrentUser() {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        }
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Anda telah logout.');
+            window.location.href = 'index.html';
+        }
+        function renderNavigation() {
+            const navLinks = document.querySelector('nav ul');
+            if (!navLinks) return;
+            const currentUser = getCurrentUser();
+            let navHTML = `
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="forum.html">Forum Diskusi</a></li>
+                <li><a href="tanya_dokter.html">Tanya Dokter</a></li>
+                <li><a href="rekomendasi_posyandu.html">Rekomendasi Posyandu</a></li>
+            `;
+            if (currentUser) {
                 navHTML += `<li><a href="profil.html">Profil (${currentUser.nama})</a></li>`;
                      navHTML += `<li><a href="dashboard_dokter.html">Dashboard</a></li>`;
                 navHTML += `<li><a href="login.html" onclick="logout()">Logout</a></li>`;
             } else {
                 navHTML += `<li><a href="login.html">Login</a></li>`;
             }
-        navLinks.innerHTML = navHTML;
-    }
-    // Jalankan saat halaman dimuat
+            navLinks.innerHTML = navHTML;
+        }
+        renderNavigation();
     renderNavigation();
 </script>
 </body>
