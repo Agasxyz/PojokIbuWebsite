@@ -45,7 +45,6 @@
     </footer>
 
     <script>
-        // --- Bagian Logika Registrasi ---
         document.getElementById('registerForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -67,8 +66,8 @@
             alert('Registrasi berhasil! Silakan login.');
             window.location.href = 'login.html';
         });
-
-        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+    </script>
+    <script>
         function getCurrentUser() {
             return JSON.parse(localStorage.getItem('currentUser'));
         }
@@ -99,7 +98,6 @@
             navLinks.innerHTML = navHTML;
         }
 
-        // Jalankan saat halaman dimuat
         renderNavigation();
     </script>
 </body>
