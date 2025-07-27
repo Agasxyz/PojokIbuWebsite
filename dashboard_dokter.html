@@ -44,34 +44,26 @@
     </footer>
 
     <script>
-        // --- Bagian Logika Dashboard Dokter (BARU DENGAN KODE AKSES) ---
-
-        // Kode rahasia untuk dokter. Untuk aplikasi nyata, ini tidak aman.
         const DOKTER_KODE = 'DOKTER123';
-
         const kodeAksesContainer = document.getElementById('kode-akses-container');
         const dashboardContent = document.getElementById('dashboard-content');
         const kodeAksesForm = document.getElementById('kode-akses-form');
         const kodeInput = document.getElementById('kode_dokter');
         const errorMessage = document.getElementById('error-message');
 
-        // Event listener untuk form kode akses
         kodeAksesForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const inputKode = kodeInput.value;
 
             if (inputKode === DOKTER_KODE) {
-                // Jika kode benar, sembunyikan form dan tampilkan dashboard
                 kodeAksesContainer.style.display = 'none';
                 dashboardContent.style.display = 'block';
-                loadQuestions(); // Muat pertanyaan setelah berhasil login
+                loadQuestions();
             } else {
-                // Jika kode salah, tampilkan pesan error
                 errorMessage.textContent = 'Kode yang Anda masukkan salah. Coba lagi.';
-                kodeInput.value = ''; // Kosongkan input
+                kodeInput.value = ''; 
             }
         });
-
         function loadQuestions() {
             const allQuestions = JSON.parse(localStorage.getItem('questions')) || [];
             const questionsList = document.getElementById('questions-list');
@@ -81,20 +73,16 @@
                 questionsList.innerHTML = '<p style="text-align:center;">Belum ada pertanyaan yang masuk.</p>';
                 return;
             }
-            
             allQuestions.sort((a, b) => (a.status > b.status) ? 1 : -1);
-
             allQuestions.forEach(q => {
                 const questionDiv = document.createElement('div');
                 questionDiv.className = 'kotak';
-
                 let contentHTML = `
                     <h3>${q.judul}</h3>
                     <p><strong>Dari:</strong> ${q.ditanyakanOleh}</p>
                     <p><strong>Pertanyaan:</strong> ${q.isi}</p>
                     <p><strong>Status:</strong> <span style="font-weight:bold; color:${q.status === 'belum dijawab' ? 'red' : 'green'};">${q.status}</span></p>
                 `;
-
                 if (q.status === 'belum dijawab') {
                     contentHTML += `
                         <div class="form-group">
@@ -113,9 +101,8 @@
                 questionsList.appendChild(questionDiv);
             });
         }
-
         function submitAnswer(questionId) {
-            const currentUser = getCurrentUser() || { nama: 'Dokter' }; // Fallback jika tidak ada user login
+            const currentUser = getCurrentUser() || { nama: 'Dokter' };
             const answerText = document.getElementById(`jawaban-for-${questionId}`).value;
             if (!answerText.trim()) {
                 alert('Jawaban tidak boleh kosong.');
@@ -135,7 +122,7 @@
             }
         }
 
-        // --- Bagian Umum untuk Autentikasi & Navigasi ---
+      
         function getCurrentUser() { return JSON.parse(localStorage.getItem('currentUser')); }
         function logout() { localStorage.removeItem('currentUser'); alert('Anda telah logout.'); window.location.href = 'index.html'; }
         function renderNavigation() {
@@ -158,8 +145,6 @@
             }
             navLinks.innerHTML = navHTML;
         }
-
-        // Jalankan render navigasi saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
             renderNavigation();
         });
