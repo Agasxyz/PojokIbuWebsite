@@ -426,7 +426,6 @@ footer p {
     }
 }
 
-
 .post {
     border: 1px solid #ffe6f2;
     padding: 15px;
@@ -434,15 +433,19 @@ footer p {
     border-radius: 8px;
     background-color: #fef7ff;
 }
+
 .post-author {
     font-weight: bold;
     color: #5d3a5a;
 }
+
 .post-meta {
     font-size: 0.8em;
     color: #888;
     margin-bottom: 10px;
 }
+
+
 .action-buttons button, .action-buttons a {
     background: none;
     border: none;
@@ -452,27 +455,68 @@ footer p {
     font-size: 0.9em;
     text-decoration: none;
 }
+
 .action-buttons button:hover, .action-buttons a:hover {
     text-decoration: underline;
 }
+
 .replies {
     margin-top: 15px;
     margin-left: 30px;
     border-left: 3px solid #e88dcd;
     padding-left: 15px;
 }
+
 .reply-form {
     margin-top: 10px;
     margin-left: 30px;
 }
+
 .reply-form textarea {
     width: 100%;
 }
 
-.post { border: 1px solid #ffe6f2; padding: 15px; margin-bottom: 15px; border-radius: 8px; background-color: #fef7ff; }
-.post-author { font-weight: bold; color: #5d3a5a; }
-.post-meta { font-size: 0.8em; color: #888; margin-bottom: 10px; }
-.action-buttons button, .action-buttons a { background: none; border: none; color: #e88dcd; cursor: pointer; margin-right: 15px; font-size: 0.9em; text-decoration: none; }
-.action-buttons button:hover, .action-buttons a:hover { text-decoration: underline; }
-.replies { margin-top: 15px; margin-left: 30px; border-left: 3px solid #e88dcd; padding-left: 15px; }
-.reply-form { margin-top: 10px; margin-left: 30px; }
+.post { 
+    border: 1px solid #ffe6f2; 
+    padding: 15px; 
+    margin-bottom: 15px; 
+    border-radius: 8px; 
+    background-color: #fef7ff; 
+}
+
+.post-author { 
+    font-weight: bold; 
+    color: #5d3a5a; 
+}
+
+.post-meta { 
+    font-size: 0.8em; 
+    color: #888; 
+    margin-bottom: 10px; 
+}
+
+.action-buttons button, .action-buttons a { 
+    background: none; 
+    border: none; 
+    color: #e88dcd; 
+    cursor: pointer; 
+    margin-right: 15px; 
+    font-size: 0.9em; 
+    text-decoration: none; 
+}
+
+.action-buttons button:hover, .action-buttons a:hover { 
+    text-decoration: underline; 
+}
+
+.replies { 
+    margin-top: 15px; 
+    margin-left: 30px; 
+    border-left: 3px solid #e88dcd; 
+    padding-left: 15px; 
+}
+
+.reply-form { 
+    margin-top: 10px; 
+    margin-left: 30px; 
+}
