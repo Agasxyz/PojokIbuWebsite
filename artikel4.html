@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tips Nutrisi Penting Selama Kehamilan - Pojok Ibu</title>
+    <title>Herbal untuk Kecerdasan Otak Anak - Pojok Ibu</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -57,7 +57,6 @@
     </footer>
 
     <script>
-        // --- Bagian Umum untuk Autentikasi & Navigasi ---
         function getCurrentUser() {
             return JSON.parse(localStorage.getItem('currentUser'));
         }
@@ -67,7 +66,7 @@
             window.location.href = 'index.html';
         }
         function renderNavigation() {
-            const navLinks = document.querySelector('nav ul'); // Sesuaikan selector jika perlu
+            const navLinks = document.querySelector('nav ul');
             if (!navLinks) return;
             const currentUser = getCurrentUser();
             let navHTML = `
@@ -85,7 +84,6 @@
             }
             navLinks.innerHTML = navHTML;
         }
-        // Jalankan saat halaman dimuat
         renderNavigation();
     </script>
 </body>
