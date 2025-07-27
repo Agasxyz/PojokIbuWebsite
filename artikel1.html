@@ -59,8 +59,7 @@
     </footer>
 
     <script>
-        // --- Bagian Umum untuk Autentikasi & Navigasi ---
-        function getCurrentUser() {
+         function getCurrentUser() {
             return JSON.parse(localStorage.getItem('currentUser'));
         }
         function logout() {
@@ -69,7 +68,7 @@
             window.location.href = 'index.html';
         }
         function renderNavigation() {
-            const navLinks = document.querySelector('nav ul'); // Sesuaikan selector jika perlu
+            const navLinks = document.querySelector('nav ul');
             if (!navLinks) return;
             const currentUser = getCurrentUser();
             let navHTML = `
@@ -87,7 +86,6 @@
             }
             navLinks.innerHTML = navHTML;
         }
-        // Jalankan saat halaman dimuat
         renderNavigation();
     </script>
 </body>
