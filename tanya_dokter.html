@@ -58,7 +58,6 @@
     </footer>
 
     <script>
-        // --- Bagian Logika Halaman Tanya Dokter ---
         function initializeTanyaDokter() {
             const currentUser = getCurrentUser();
             const tanyaDokterForm = document.getElementById('tanyaDokterForm');
@@ -72,14 +71,12 @@
                 tanyaDokterForm.style.display = 'none';
             }
         }
-
         document.getElementById('tanyaDokterForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const currentUser = getCurrentUser();
             const judul = document.getElementById('judul_pertanyaan_dokter').value;
             const isi = document.getElementById('isi_pertanyaan_dokter').value;
 
-            // Ambil daftar pertanyaan yang sudah ada dari localStorage
             const questions = JSON.parse(localStorage.getItem('questions')) || [];
 
             const newQuestion = {
@@ -100,8 +97,6 @@
             document.getElementById('tanyaDokterForm').reset();
         });
 
-
-        // --- Bagian Umum untuk Autentikasi & Navigasi ---
         function getCurrentUser() {
             return JSON.parse(localStorage.getItem('currentUser'));
         }
@@ -130,7 +125,6 @@
             navLinks.innerHTML = navHTML;
         }
 
-        // Jalankan saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
             renderNavigation();
             initializeTanyaDokter();
