@@ -5,15 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forum Diskusi - Pojok Ibu</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .post { border: 1px solid #ffe6f2; padding: 15px; margin-bottom: 15px; border-radius: 8px; background-color: #fef7ff; }
-        .post-author { font-weight: bold; color: #5d3a5a; }
-        .post-meta { font-size: 0.8em; color: #888; margin-bottom: 10px; }
-        .action-buttons button, .action-buttons a { background: none; border: none; color: #e88dcd; cursor: pointer; margin-right: 15px; font-size: 0.9em; text-decoration: none; }
-        .action-buttons button:hover, .action-buttons a:hover { text-decoration: underline; }
-        .replies { margin-top: 15px; margin-left: 30px; border-left: 3px solid #e88dcd; padding-left: 15px; }
-        .reply-form { margin-top: 10px; margin-left: 30px; }
-    </style>
 </head>
 <body>
     <header>
@@ -54,7 +45,6 @@
     </footer>
 
     <script>
-        // --- Bagian Logika Forum ---
         const postsContainer = document.getElementById('postsContainer');
         const newPostForm = document.getElementById('newPostForm');
         const loginPrompt = document.getElementById('login-prompt');
@@ -70,7 +60,6 @@
             }
             loadPosts();
         }
-
         function loadPosts() {
             const allPosts = JSON.parse(localStorage.getItem('forumPosts')) || [];
             postsContainer.innerHTML = '';
@@ -80,7 +69,6 @@
                 postsContainer.appendChild(postElement);
             });
         }
-
         function createPostElement(post, allPosts) {
             const currentUser = getCurrentUser();
             const postDiv = document.createElement('div');
@@ -105,7 +93,6 @@
             });
             return postDiv;
         }
-
         newPostForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const currentUser = getCurrentUser();
@@ -118,7 +105,6 @@
             document.getElementById('postContent').value = '';
             loadPosts();
         });
-
         function showReplyForm(postId) {
             const replyFormContainer = document.getElementById(`reply-form-for-${postId}`);
             replyFormContainer.innerHTML = `
@@ -127,7 +113,6 @@
                     <button type="submit" class="btn" style="margin-top:5px;">Kirim Balasan</button>
                 </form>`;
         }
-
         function handleReply(event, postId) {
             event.preventDefault();
             const currentUser = getCurrentUser();
@@ -158,8 +143,6 @@
             localStorage.setItem('forumPosts', JSON.stringify(remainingPosts));
             loadPosts();
         }
-
-        // --- Bagian Umum untuk Autentikasi & Navigasi ---
         function getCurrentUser() { return JSON.parse(localStorage.getItem('currentUser')); }
         function logout() { localStorage.removeItem('currentUser'); alert('Anda telah logout.'); window.location.href = 'index.html'; }
         function renderNavigation() {
@@ -181,8 +164,6 @@
             }
             navLinks.innerHTML = navHTML;
         }
-
-        // Jalankan saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
             renderNavigation();
             initializeForum();
